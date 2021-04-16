@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Page metadata -->
+<head>
+
+    <!-- Meta tags -->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Fonts and Styles-->
+    {% include "summarizer/components/headMetadata.html" %}
+    
+    <!-- Page title -->
+    <title>Summarizer page</title>
+
+    {% load static %}
+    <!-- CSS - Navbar -->
+    <link rel="stylesheet" type="text/css" href="{% static 'summarizer/styleSheets/navbar.css' %}">
+    <!-- CSS - Summary page -->
+    <link rel="stylesheet" type="text/css" href="{% static 'summarizer/styleSheets/summaryRequestForm.css' %}">
+    
+</head>
+<!-- / Page metadata -->
+
+
+<!-- Page body -->
+<body>
+
+    <!-- Navbar -->
+    {% include "summarizer/components/navbar.html" %}
+
+
+    <!-- Heading and picture container -->
+    <div id="headerPicture" class="d-flex align-items-end header-picture-container" style="height: 30vh;">
+
+        <!-- Heading -->
+        <h1 class="display-4 mt-5 pt-5 px-4 heading shadow">
+            <span class="fw-bold  white-text-outline" style="color: rgb(64, 64, 64);">Summary form </span> <small class=" fw-bold gray-text-outline" style="color: rgb(242, 242, 242);">summarize your text</small>
+        </h1>
+
+    </div>
+    <!-- / Heading and picture container -->
+
+
+    <!-- First text container -->
+    <div class="container-fluid pt-5 pb-5 text-container shadow-lg">
+
+        <div class="row">
+
+            <!-- Left text column -->
+            <div class="col-sm-6">
+
+                <p class="lead pt-3 ps-4 pe-5 text-justify">
+                    This page displays a form which can be used to summarize a text. 
+                    The form consists of several fields whose description is given on the right.
+                </p>
+
+                <p class="pt-2 ps-4 pe-5 text-justify">
+                    The <i>language</i> of the text being summarized should be <span class="font-monospace">English</span>. 
+                    This comes from the fact that the service uses a <i>specific version</i> of the <i>deep learining</i> model <i>BERT</i>.
+                    The model was trained on a corpus of <i>English books</i> and <i>English Wikipedia</i>.
+                    Therefore, the model was <i>"trained to understand English language"</i>, expects the content written in <i>English</i> at its input, and will give the best results on <i>English</i> text.
+                    <strong>It is important to note</strong> that the service <i>will work</i> with text written in different languages, but the quality of the output summary will not be as good.
+                </p>
+
+                <p class="pt-2 ps-4 pe-5 text-justify">
+                    The summarization this service provides is <strong>extractive</strong>. 
+                    This means that the computed <i>summary</i> will consist of <strong>sentences found in the input text</strong>.
+                </p>
+
+                <p class="pt-2 ps-4 pe-5 text-justify">
+                    Although the <i>machine learining</i> architecture used by this service utilizes a version of the <i>BERT</i> model which is <i>fairly large</i>, the computation of a summary takes only <span class="font-monospace">a couple of seconds</span>.
+                    The computation time will vary slightly depending on the <i>number of sentences</i> in the input text.
+                    <strong>It is good to know</strong> that the system, when forming a summary, <i>does not take into consideration</i> senteces that are <i>shorter than</i> a certain length ( in this case that length is <span class="font-monospace">40 characters</span> ).
+                    That's because the short sentences are considered <i>insufficiently descriptive</i> or <i>need additional context</i>. 
+                </p>
+
+                <p class="pt-2 ps-4 pe-5  text-justify">
+                    To see the quality of calculated summaries, <a href="#requestExamples" class="fst-italic text-reset">two summary request examples</a> are provided below the form. 
+                    They can be used to get better acquainted with the form fields.
+                </p>
+            </div>
+            <!-- / Left text column -->
+
+            <!-- Right text column -->
+            <div class="col-sm-6">
+
+                <!-- Bordered container -->
+                <div class="container mt-3 me-5 pb-3 bg-light border border-secondary border-1 shadow">
+                    <h4 class="pt-4">The description of the form fields</h4>
+                    <p class="pt-3 px-3 text-justify">
+                        <strong>Text to summarize</strong> - <i>The text being summarized</i>. 
+                        It can be "copy and pasted" or written manually.
+                        Preferably, the text should be written in <i>English</i>.
+                    </p>
+                    <p class="px-3 text-justify">
+                        <strong>Use number of sentences</strong> - This radio button enables the <span class="font-monospace"> Desired number </span> field.
+                        The field contains a number that specifies the <i>desired number of sentences</i> that the summary should contain.
+                        The acceptable range of the number is between <span class="font-monospace"> 1 </span> and <span class="font-monospace"> 100 </span>.
+                    </p>
+                    <p class="px-3 text-justify">
+                        <strong>Use sentence ratio</strong> - This radio button enables the <span class="font-monospace"> Desired ratio </span> field.
+                        The field contains a number that specifies the <i>ratio of the number of sentences</i> found in the <i>input text</i> that the summary should keep.
+                        The acceptable range of the ratio if between <span class="font-monospace"> 0.05 </span> and <span class="font-monospace"> 1.0 </span>.
+                    </p>
+                    <p class="px-3 text-justify">
+                        <strong>Keep the first sentence of the text</strong> - The <span class="font-monospace"> Yes </span> or <span class="font-monospace"> No </span> radio buttons specify whether to <i>include the first sentence of the input text</i> in the summary.
+                    </p>
+                    <span class="text-muted"> <strong>It is important to note</strong> that if it's specified that <i>the first sentence of the input text should be included</i> in the summary, the computed summary could have a <i>one sentence more</i> than desired.  </span>
+                </div>
+                <!-- / Bordered container -->
+
+            </div>
+            <!-- / Right text column -->
+
+        </div>
+
+    </div>
+    <!-- / First text container -->
+
+
+    <!-- Form and picture container -->
+    <div id="picture" class="container-fluid bg-secondary py-5 picture-container">
+
+        <div class="row">
+
+            <!-- Left column -->
+            <div class="col-sm-5 p-4">
+
+                <!-- Bordered form container -->
+                <div class="container h-100 border border-dark border-5" style=" background-color: rgb(230, 230, 230);">
+
+                    <!-- Form -->
+                    <form id="summarizerForm" action="#" method="POST">
+
+                        <!-- Textarea container -->
+                        <div class="row pt-3 border-bottom border-1 border-light">
+                            <div class="form-group">
+                                <label for="text"><strong>Text to summarize</strong> <small class="text-muted">(preferably in English)</small></label>
+                                <textarea class="form-control" name="text" id="text" rows="13" placeholder="Your text goes here" minlength="41" maxlength="10000" required></textarea>
+                            </div>
+                            <div class="d-flex pt-1 justify-content-end">
+                                <a id="clearTextButton" class="btn btn-link text-decoration-none text-muted fst-italic fw-bold" role="button">
+                                    Clear text <i class="bi bi-x-circle"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <!-- / Textarea container -->
+
+                        <!-- Container with radios and number inputs -->
+                        <div class="row border-bottom border-1 border-light ">
+                            <!-- First radio button and number input -->
+                            <div id="sentInputDiv" class="col-sm p-3 border-end border-1 border-light">
+                                <div class="form-check pb-3">
+                                    <input class="form-check-input" type="radio" name="radioOption" id="optionSentences" value="sentences" checked onclick="OptionCheck()">
+                                    <label class="form-check-label fw-bold" for="optionSentences">Use number of sentences </label>
+                                </div>
+                                <div class="form-group">
+                                    <label for="numOfSents" class="fst-italic">Desired number </label>
+                                    <input class="form-control" type="number" name="sentNumber" id="numOfSents" value="1" min="1" max="100" step="1" required>
+                                    <small id="numOfSentsHelp" class="form-text text-muted">(The number of sentences in the summary)</small>
+                                </div>
+                            </div>
+                            <!-- Second radio button and number input -->
+                            <div id="ratioInputDiv" class="col-sm p-3">
+                                <div class="form-check pb-3">
+                                    <input class="form-check-input" type="radio" name="radioOption" id="optionRatio" value="ratio" onclick="OptionCheck()">
+                                    <label class="form-check-label fw-bold" for="optionRatio">Use sentence ratio </label>
+                                </div>
+                                <div class="form-group">
+                                    <label for="ratio" class="fst-italic">Desired ratio </label>
+                                    <input class="form-control" type="number" name="sentRatio" id="ratio" value="0.2" min="0.05" max="1.0" step="0.05" disabled required>
+                                    <small id="sentRatioHelp" class="form-text text-muted">(The ratio of the number of sentences in the input text)</small>
+                                </div>
+                            </div>
+                            <!-- / Second radio button and number input -->
+                        </div>
+                        <!-- / Container with radios and number inputs -->
+
+                        <!-- Container with text and radios -->
+                        <div class="row px-3 pt-3 pb-2">
+                            <!-- Text container -->
+                            <div class="col-sm-7 ">
+                                <p class="fw-bold">
+                                    Keep the first sentence of the text?
+                                </p>
+                            </div>
+                            <!-- Radio buttons -->
+                            <div class="col-sm-5">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="firstSent" id="firstSentenceYes" value="yes" checked>
+                                    <label class="form-check-label fst-italic" for="firstSentenceYes">Yes </label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="firstSent" id="firstSentenceNo" value="no">
+                                    <label class="form-check-label fst-italic" for="firstSentenceNo">No </label>
+                                </div>
+                            </div>
+                            <!-- / Radio buttons -->
+                        </div>
+                        <!-- / Container with text and radios -->
+                                                                
+                </div>
+                <!-- / Bordered form container -->
+
+            </div>
+            <!-- / Left column -->
+
+
+            <!-- Middle column -->
+            <div class="col-sm-2 p-4">
+
+                <!-- Button container -->
+                <div class="d-flex h-100 justify-content-center align-items-center">
+                    <button id="submitButton" type="submit" class="btn btn-primary rounded-circle h-25 w-75 border border-2 border-light shadow fw-bold btn-custom-shadow" style="font-size: larger;">
+                        <span id="loadingSpinner" class="spinner-border" role="status" aria-hidden="true" style="width: 3rem; height: 3rem; display: none;"></span>
+                        <span id="submitButtonText">Summarize <i class="bi bi-chevron-double-right"></i></span>
+                    </button>
+                </div>
+                
+            </div>
+            <!-- / Middle column -->
+
+            </form>
+            <!-- / Form -->
+
+            
+            <!-- Right column -->
+            <div class="col-sm-5 p-4">
+
+                <!-- Summary display container -->
+                <div class="container h-100 bg-light rounded">
+                    <!-- Header -->
+                    <div class="row pt-3 border-bottom border-dark border-3 ">
+                        <h4 class="fw-bold">Summary</h4>
+                    </div>
+                    <!-- Summary display parahraph -->
+                    <div class="row overflow-auto border-bottom border-secondary border-1" style="height: 69vh;">
+                        <p id="summaryText" class="p-3 text-justify" style="color: rgb(200, 200, 200);">
+                            The summary of your text will be shown here. 
+                            To copy the text to the clipboard, press the <span class="fst-italic fw-bold">Copy to clipboard </span><i class="bi bi-clipboard"></i> button below.
+                        </p>
+                    </div>
+                    <!-- Footer -->
+                    <div class="row">
+                        <div class="d-flex pt-1 justify-content-end">
+                            <a tabindex="0" id="copyClipboardButton" class="btn btn-link text-decoration-none text-muted fst-italic fw-bold" role="button" data-bs-toggle="popover" data-bs-trigger="focus" data-bs-content="Text copied.">
+                                Copy to clipboard <i class="bi bi-clipboard"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <!-- / Summary display container -->
+
+            </div>
+            <!-- / Right column -->
+
+        </div>
+
+    </div>
+    <!-- / Form and picture container -->
+
+
+    <!-- Second text container -->
+    <div id="requestExamples" class="container-fluid bg-light pt-4 text-container shadow-lg" style="height: 100vh;">
+
+        <h3 class=" px-4 pt-5 fw-bold">The examples</h3>
+
+        <p class="pt-3 ps-5 pe-5 text-justify">
+            <strong>Two examples of summary requests</strong> are provided below. 
+            Request texts come from two different books: <i>"Astrophysics for People in a Hurry"</i> by <i>Neil deGrasse Tyson</i> and <i>"The Future of Humanity: Terraforming Mars, Interstellar Travel, Immortality, and Our Destiny Beyond Earth"</i> by <i>Michio Kaku</i>, respectively.
+            Each request has a <i>different set of parameters</i> to show the system's behavior upon their usage.
+        </p>
+
+        <!-- Container of examples -->
+        <div class="row pt-3 border-bottom" style="height: 70vh;">
+
+            <!-- Left example -->
+            <div class="col-sm-6 h-100 overflow-auto  border-end border-dark border-3">
+
+                <div class="pt-3 ps-3 pe-2 text-justify">
+                    <span class="fw-bold">Text to summarize: <small class="text-muted"> (20 sentences) </small> </span>
+                    <p class="p-2">
+                        Most of the solar system's asteroids live and work in the main asteroid belt, a roughly flat zone between the orbits of Mars and Jupiter.
+                        By tradition, the discoverers get to name their asteroids whatever they like.
+                        Often drawn by artists as a region of cluttered, meandering rocks in the plane of the solar system, the asteroid belt's total mass is less than five percent that of the Moon, which is itself barely more than one percent of Earth's mass.
+                        Sounds insignificant.
+                        But accumulated perturbations of their orbits continually create a deadly subset, perhaps a few thousand, whose eccentric paths intersect Earth's orbit.
+                        A simple calculation reveals that most of them will hit Earth within a hundred million years.
+                        The ones larger than about a kilometer across will collide with enough energy to destabilize Earth's ecosystem and put most of Earth's land species at risk of extinction.
+                        That would be bad.
+                        Asteroids are not the only space objects that pose a risk to life on Earth.
+                        The Kuiper belt is a comet-strewn swath of circular real estate that begins just beyond the orbit of Neptune, includes Pluto, and extends perhaps as far again from Neptune as Neptune is from the Sun.
+                        The Dutch-born American astronomer Gerard Kuiper advanced the idea that in the cold depths of space, beyond the orbit of Neptune, there reside frozen leftovers from the formation of the solar system.
+                        Without a massive planet upon which to fall, most of these comets will orbit the Sun for billions more years.
+                        As is true for the asteroid belt, some objects of the Kuiper belt travel on eccentric paths that cross the orbits of bonafide planets.
+                        Pluto and its ensamble of siblings called Plutinos cross Neptune's path around the Sun.
+                        Other Kuiper belt objects plunge all the way down to the inner solar system, crossing planetary orbits with abandon.
+                        This subset includes Halley, the most famous comet of them all.
+                        Far beyond the Kuiper belt, extending halfway to the nearest stars, lives a spherical reservoir of comets called the Oort cloud, named for Jan Oort, the Dutch astrophysicist who first deducted its existence.
+                        This zone is responsible for the long-period comets, those with orbital periods far longer than a human lifetime.
+                        Unlike Kuiper belt comets, Oort cloud comets can rain down on the inner solar system from any angle and from any direction.
+                        The two brightest of the 1900s, comets Hale-Bopp and Hyakutake, were both from the Oort cloud and are not coming back anytime soon.
+                    </p>
+                    <span class="fw-bold">Use number of sentences <i class="bi bi-arrow-right"></i> Desired number:</span> <span class="font-monospace"> 6 </span> <br>
+                    <span class="fw-bold">Keep the first sentence of the text:</span> <span class="font-monospace"> Yes </span> <br>
+                    <span class="fw-bold">Summary: <small class="text-muted"> (7 sentences) </small></span>
+                    <p class="p-2">
+                        Most of the solar system's asteroids live and work in the main asteroid belt, a roughly flat zone between the orbits of Mars and Jupiter. 
+                        By tradition, the discoverers get to name their asteroids whatever they like. 
+                        The ones larger than about a kilometer across will collide with enough energy to destabilize Earth's ecosystem and put most of Earth's land species at risk of extinction. 
+                        As is true for the asteroid belt, some objects of the Kuiper belt travel on eccentric paths that cross the orbits of bonafide planets. 
+                        This subset includes Halley, the most famous comet of them all. 
+                        Far beyond the Kuiper belt, extending halfway to the nearest stars, lives a spherical reservoir of comets called the Oort cloud, named for Jan Oort, the Dutch astrophysicist who first deducted its existence. 
+                        Unlike Kuiper belt comets, Oort cloud comets can rain down on the inner solar system from any angle and from any direction.
+                    </p>
+                </div>
+
+            </div>
+            <!-- / Left example -->
+
+            <!-- Right example -->
+            <div class="col-sm-6 h-100 overflow-auto">
+
+                <div class="pt-3 ps-2 pe-3 text-justify">
+                    <span class="fw-bold">Text to summarize: <small class="text-muted"> (26 sentences) </small> </span>
+                    <p class="p-2">
+                        In the movie 2001, a crew of astronauts are kept frozen in pods as their giant ship makes the arduous journey to Jupiter.
+                        Their bodily functions are reduced to zero, so there are none of the complications associated with multigenerational starships.
+                        Since the passengers are frozen, the mission designers would not have to worry about the astronauts consuming large quantities of resources or keeping the population stable.
+                        But is this really possible?
+                        Anyone who has lived in the north during wintertime knows that fish and frogs can be frozen solid in the ice, and that when spring comes and ice melts, they will emerge as if nothing happened.
+                        Normally, we would expect the freezing process to kill these animals.
+                        As you lower the temperature of blood, ice crystals begin to grow and expand both within the cells, eventually rupturing the cell wall, and also outside the cells, potentially squeezing and crushing them.
+                        Mother Nature solves this problem using a simple solution: antifreeze.
+                        During winter, we put antifreeze in our cars in order to lower the freezing point of water.
+                        In the same way, Mother Nature uses glucose as an antifreeze, thereby lowering the freezing point of blood.
+                        So although the animal is frozen in a block of ice, the blood in its veins is still liquid and can still perform basic bodily functions.
+                        For humans this high concentration of glucose in our bodies would be toxic and would kill us.
+                        So scientists have experimented with other kinds of chemical antifreezes in a process they call vitrification, which involves using a combination of chemicals to lower the freezing point so that ice crystals do not form.
+                        Although it sounds intriguing, the results have been disappointing so far.
+                        Vitrification often has adverse side affects.
+                        The chemicals used in the labs are often poisonous and can be lethal.
+                        To date, no one has ever been frozen solid, then thawed out, and lived to tell about it.
+                        So we are a long way from effectively achieving suspended animation.
+                        Scientists hope that in time, these technical questions might be solved.
+                        So on paper, suspended animation may be the ideal way to solve many of the problems of long-term voyages.
+                        Although it is not a practical option today, in the future, it might be one of the chief methods of surviving interstellar missions.
+                        However, there is one problem with suspended animation. If there is an unexpected emergency, such as asteroid impact, then humans may be required to fix the damage.
+                        Robots may be activated to make the initial repairs, but, if the emergency is severe enough, human experience and judgment will be required.
+                        This might mean that some of the passengers who are engineers may have to be revived, but this last-minute option could be fatal if it takes too long to revive the engineers and human intervention is required immediately.
+                        This is the weak point in an interstellar voyage using suspended animation.
+                        It may be that a small multigenerational society of engineers would have to be kept awake and ready during the entire voyage.
+                    </p>
+                    <span class="fw-bold">Use sentence ratio <i class="bi bi-arrow-right"></i> Desired ratio:</span> <span class="font-monospace"> 0.45 </span> <br>
+                    <span class="fw-bold">Keep the first sentence of the text:</span> <span class="font-monospace"> No </span> <br>
+                    <span class="fw-bold">Summary: <small class="text-muted"> (11 sentences) </small></span>
+                    <p class="p-2">
+                        As you lower the temperature of blood, ice crystals begin to grow and expand both within the cells, eventually rupturing the cell wall, and also outside the cells, potentially squeezing and crushing them. 
+                        Mother Nature solves this problem using a simple solution: antifreeze. 
+                        During winter, we put antifreeze in our cars in order to lower the freezing point of water. 
+                        For humans this high concentration of glucose in our bodies would be toxic and would kill us. 
+                        Although it sounds intriguing, the results have been disappointing so far. 
+                        Vitrification often has adverse side affects. 
+                        To date, no one has ever been frozen solid, then thawed out, and lived to tell about it. 
+                        Scientists hope that in time, these technical questions might be solved. 
+                        However, there is one problem with suspended animation. 
+                        This is the weak point in an interstellar voyage using suspended animation. 
+                        It may be that a small multigenerational society of engineers would have to be kept awake and ready during the entire voyage.
+                    </p>
+                </div>
+                    
+            </div>
+            <!-- / Right example -->
+
+        </div>
+        <!-- / Container of examples -->
+
+    </div>
+    <!-- / Second text container -->
+    
+
+    
+    <!-- Footer -->
+    {% include "summarizer/components/footer.html" %}
+
+
+    <!-- JS ( + Popper.js) - Bootstrap -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
+    
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- JS - custom script for radio button checking-->
+    <script src="{% static 'summarizer/scripts/radioButtonChecking.js' %}"></script>
+    <!-- JS - custom script for form submission-->
+    <script src="{% static 'summarizer/scripts/formSubmission.js' %}"></script>
+    <!-- JS - custom script for form validation-->
+    <script src="{% static 'summarizer/scripts/formValidation.js' %}"></script>
+    <!-- JS - custom utility functions script-->
+    <script src="{% static 'summarizer/scripts/utilityFunctions.js' %}"></script>
+
+    <!-- JS - custom script -->
+    <script>
+
+        $(document).ready(function(){
+
+            // Change the navbar color using the 'linear-gradient' function
+            $('.navbar').css( "background" , 'linear-gradient( to bottom, rgba(0,0,0,0.5), rgba(0,0,0,0))' );
+
+            // Enable popover for *Copy to clipboard* button
+            $('#copyClipboardButton').popover();
+
+            // Change the navbar opacity and move the background pictures upon scrolling
+            $(window).scroll(function(){
+
+                // Calculate opacity
+                var alpha = 0.5  + ($(window).scrollTop() / $('#headerPicture').height());
+                if( alpha > 1.0 ){
+                    alpha = 1.0;
+                }
+                // Apply opacity to navbar
+                $('.navbar').css( "background" , 'linear-gradient( to bottom, rgba(0,0,0,'+ alpha + '), rgba(0, 0, 0, 0))' );
+
+                
+                // Calculatie image displacement
+                var displacement = 0.0 + 400.0*( $(window).scrollTop() / $('#picture').height() );
+                // Apply image displacement on picture container
+                $('#picture').css( "background-position" , '0px ' + Math.round(displacement) + 'px' );
+                // Apply the same displacement on the heading picture container
+                $('#headerPicture').css( "background-position" , '0px ' + Math.round(displacement) + 'px' );
+
+            });
+
+        });
+
+    </script>
+    <!-- / JS - custom script -->
+
+</body>
+<!-- / Page body -->
+
+</html>

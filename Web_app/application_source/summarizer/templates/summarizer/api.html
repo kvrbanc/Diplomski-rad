@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Page metadata -->
+<head>
+
+    <!-- Meta tags -->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Fonts and Styles-->
+    {% include "summarizer/components/headMetadata.html" %}
+    
+    <!-- Page title -->
+    <title>API docs</title>
+
+    {% load static %}
+    <!-- CSS - Navbar -->
+    <link rel="stylesheet" type="text/css" href="{% static 'summarizer/styleSheets/navbar.css' %}">
+    <!-- CSS - API documentation page -->
+    <link rel="stylesheet" type="text/css" href="{% static 'summarizer/styleSheets/api.css' %}">
+    
+</head>
+<!-- / Page metadata -->
+
+
+<!-- Page body -->
+<body>
+
+
+    <!-- Navbar -->
+    {% include "summarizer/components/navbar.html" %}
+
+
+    <!-- Container with all of the page content -->
+    <div class="container-fluid mt-5 pt-5 ">
+
+        <h1 class="display-4 px-4">
+            <span class="fw-bold">API</span> <small class="text-muted">use the service programmatically</small>
+        </h1>
+
+        <p class="lead pt-4 ps-4 pe-4 text-justify">
+            This page dispays the service's API. 
+            Using the API it is possible to interact with the system programmatically.
+            Listed below are the API endpoints and all the information necessary to make a successful request.
+            Also, the last section provides a couple of request examples.  
+        </p>
+
+
+        <!-- Container with API endpoints -->
+        <div class="container-fluid ps-3 pb-3">
+
+            <h3 id="endpoints" class="pt-2 fw-bold">API endpoints</h3>
+
+            <p class="pt-3 ps-4 pe-4 text-justify">
+                Currently, the service supports only <strong>one endpoint</strong>. 
+                The URL of the endpoint is listed below.
+                It is used to request the main functionality of the system, the <i>summarization of the text</i>. <br>
+                The endpoint description contains all the necessary information to make a <i>successful request</i>.
+                The information icludes the <i>structure</i> of the <i>request</i> and <i>response body</i>, as well as the <i>response status codes</i>.
+            </p>
+
+            <!-- Collapse toggle for the API endpoint -->
+            <a class="text-decoration-none text-reset" data-bs-toggle="collapse" href="#endpoint1" role="button" aria-expanded="false" aria-controls="endpoint1">
+                <!-- API Endpoint text -->
+                <div class="d-flex flex-row border border-2 border-dark bg-light ms-2 mt-2">
+                        <div class="badge badge bg-success my-2  mx-3">
+                            POST
+                        </div>
+                        <div class="fw-bold my-1 me-auto">
+                            /summarize
+                        </div>
+                        <div class="text-muted my-1 me-5">
+                            Summarizes the text using parameters specified in the request body
+                        </div>
+                </div>
+            </a>
+
+            <!-- Container for API endpoint description -->
+            <div id="endpoint1" class="collapse">
+                <div class="d-flex flex-column ms-2 pb-4 bg-light border-bottom border-end border-start border-2">
+                    <!-- The description paragraph -->
+                    <div class="px-5 pt-4">
+                        <p style="font-size: 18px;">
+                            A request sent to this URL starts the execution of a <i>controller resource</i> that performs <strong>the summarization</strong>.
+                            Listed below is the structure of the <i>request</i> and <i>response body</i>, as well as the <i>response status codes</i>.
+                        </p>
+                    </div>
+                    <!-- First subheading -->
+                    <div>
+                        <h4 class="fw-bold ms-4 mt-4">Request body</h4>
+                    </div>
+                    <!-- The acceptepted media types paragraph -->
+                    <div class="ms-5 mt-3">
+                        The controller accepts <i>three different types</i> of a request body ( specified with the <span class="font-monospace">Content-Type</span> request header ):
+                        <ul class="ms-4">
+                            <li>
+                                <strong>application/json </strong> 
+                            </li>
+                            <li>
+                                <strong>application/x-www-form-urlencoded </strong> 
+                            </li>
+                            <li>
+                                <strong>multipart/form-data </strong> </strong> 
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- The body parameters paragraph -->
+                    <div class="ms-5 me-5 mt-3">
+                        <div>
+                            The body of the request needs to contain a <i>subset</i> of the following <strong>parameters</strong>, whose <strong>values</strong> are of an <i>appropriate type</i> and in the <i>appropriate range</i> .
+                            Since not all parameters are needed, the missing parameters will be <i>set to their default value</i>. 
+                            The example of a request body is given on the right. 
+                        </div>
+                        <!-- Parameter description container -->
+                        <div class="d-flex flex-row ms-3 mt-4">
+                            <!-- Parameter description table -->
+                            <table class="table table-borderless">
+                                <thead>
+                                    <tr>
+                                        <th scope="col" class="text-center text-muted"><i>Parameter name</i></th>
+                                        <th scope="col" class="text-center text-muted"><i>Required?</i></th>
+                                        <th scope="col" class="text-center text-muted"><i>Default value</i></th>
+                                        <th scope="col" class="text-center text-muted"><i>Value type</i></th>
+                                        <th scope="col" class="text-center text-muted"><i>Accepted value</i></th>
+                                        <th scope="col" class="ps-5 text-muted"><i>Value description</i></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="text-center"> <strong>"text"</strong> </td>
+                                        <td class="text-center"> YES </td>
+                                        <td class="text-center"> / </td>
+                                        <td class="text-center"> <span class="font-monospace">string</span> </td>
+                                        <td class="text-center"> length &gt; <span class="font-monospace">40 characters</span> </td>
+                                        <td class="ps-3">
+                                            Specifies the input text for summarization.
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-center"> <strong>"numOfSents"</strong> </td>
+                                        <td class="text-center"> NO </td>
+                                        <td class="text-center"> / </td>
+                                        <td class="text-center"> <span class="font-monospace">integer</span> </td>
+                                        <td class="text-center"><span class="font-monospace">[1 - 999]</span> </td>
+                                        <td class="ps-3">
+                                            Specifies the desired number of sentences in a summary. 
+                                            If this number is provided, it disables the parameter <strong>sentRatio</strong> (this parameter takes precedence).
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-center"> <strong>"sentRatio"</strong> </td>
+                                        <td class="text-center"> NO </td>
+                                        <td class="text-center"> <span class="font-monospace">0.2</span> </td>
+                                        <td class="text-center"> <span class="font-monospace">float</span> </td>
+                                        <td class="text-center"> <span class="font-monospace text-nowrap">[0.0 - 1.0]</span> </td>
+                                        <td class="ps-3">
+                                            Specifies the ratio of the number of input text sentences that need to be kept in the summary.
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-center"> <strong>"useFirstSent"</strong> </td>
+                                        <td class="text-center"> NO </td>
+                                        <td class="text-center"> <span class="font-monospace">True</span> </td>
+                                        <td class="text-center"> <span class="font-monospace">boolean</span> </td>
+                                        <td class="text-center"> <span class="font-monospace">true/false
+                                        </span> </td>
+                                        <td class="ps-3">
+                                            Specifies whether to keep the first sentence of the input text in the output summary.
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <!-- Container for the example -->
+                            <div class="container w-50 h-25" style="background-color: rgb(217, 217, 217);">
+                                <p class="mt-3 mx-2 px-2 bg-light">
+                                    <i>Example</i> :  Request body formatted as JSON
+                                </p>
+                                <!-- Weird formatting because of <pre> tag -->
+                                <pre class="font-monospace pt-4 px-2">
+    . . .
+Content-Type: application/json
+    . . .
+
+{
+    "text":"Most of the solar system's asteroids live and work…",
+    "numOfSents": 6 ,
+    "sentRatio": 0.4 , 
+    "useFirstSent": true
+}
+                                </pre>
+                            </div>
+                            <!-- Container for the example -->
+                        </div>
+                        <!-- / Parameter description container -->
+                    </div>
+                    <!-- / The body parameters paragraph -->
+
+
+                    <!-- Second subheading -->
+                    <div>
+                        <h4 class="fw-bold ms-4 mt-4">Status codes and response body</h4>
+                    </div>
+
+                    <!-- Status codes paragraph -->
+                    <div class="ms-5 mt-3">
+                        Depending on the success of the request processing, several different <strong>status codes</strong> are issued by the server.
+                        Each status code is followed by a specific <strong>response body</strong>, formatted as a <i>JSON</i> object.
+                    </div>
+
+                    <!-- Status codes description list -->
+                    <ul class="pt-4 ms-5">
+                        <li>
+                            <!-- First status code -->
+                            <div class="d-flex flex-row me-5">
+                                <div class="me-auto">
+                                    <p class="pe-2">
+                                        <!-- Status code -->
+                                        <span class="font-monospace fw-bold fs-6">200 OK</span> <br> <br> 
+                                        <!-- Description of the status code -->
+                                        <span class="text-justify">
+                                            The <span class="font-monospace">200 OK</span> status code will be issued by the server after <strong>successfully processing</strong> a request.
+                                            The <strong>response body</strong> contains only <i>one parameter</i>, <span class="font-monospace">"content"</span>.
+                                            The <span class="font-monospace">string</span> value of the parameter corresponds to the <i>summary of the input text</i>.
+                                        </span>
+                                    </p>
+                                </div>
+                                <!-- Container for the example -->
+                                <div class="container" style="width: 35vw; background-color: rgb(217, 217, 217);">
+                                    <p class="mt-3 mx-2 px-2 bg-light">
+                                        <i>Example</i> :  The response body of a successfully processed request
+                                    </p>
+                                    <!-- Weird formatting because of <pre> tag -->
+                                    <pre class="font-monospace pt-4 px-2">
+. . .  200 OK
+Content-Type: application/json
+    . . .
+
+{
+    "content":"Most of the solar system's asteroids live and work…" 
+}
+                                    </pre>
+                                </div>
+                            </div>
+                            <!-- / First status code -->
+                        </li>
+                        <li class="mt-3">
+                            <!-- Second status code -->
+                            <div class="d-flex flex-row me-5">
+                                <div class="me-auto">
+                                    <p class="pe-2">
+                                        <!-- Status code -->
+                                        <span class="font-monospace fw-bold fs-6">400 BAD REQUEST</span> <br> <br>
+                                         <!-- Description of the status code -->
+                                        <span class="text-justify">
+                                            The <span class="font-monospace">400 BAD REQUEST</span> status code will be issued by the server when the <strong>request is denied</strong>.
+                                            The reason for the refusal may be one of the following:
+                                            <ul>
+                                                <li>The request body <i>is incorrectly fromatted</i></li>
+                                                <li>The request body <i>is empty</i></li>
+                                                <li>The request body <i>contains invalid parameters</i></li>
+                                                <li>The request body <i>does not contain the required parameters</i></li>
+                                                <li>The parameter <i>values</i> are of the <i>wrong type</i> or <i>not in the accepted value range</i></li>
+                                                <li>The <i>value</i> of the <span class="font-monospace">"text"</span> parameter <i>contains only one word</i></li>
+                                            </ul> <br>
+                                            The <strong>response body</strong> contains only <i>one parameter</i>, <span class="font-monospace">"detail"</span>.
+                                            The <span class="font-monospace">string</span> value of the parameter provides a brief <i>description of why the request is rejected</i>.
+                                        </span>
+                                    </p>
+                                </div>
+                                <!-- Container for the example -->
+                                <div class="container" style="width: 35vw; background-color: rgb(217, 217, 217);">
+                                    <p class="mt-3 mx-2 px-2 bg-light">
+                                        <i>Example</i> :  The response body of a denied request
+                                    </p>
+                                    <!-- Weird formatting because of <pre> tag -->
+                                    <pre class="font-monospace pt-4 px-2">
+. . .  400 BAD REQUEST
+Content-Type: application/json
+    . . .
+
+{
+    "detail": "Malformed request body. Body of the request is empty."
+}
+                                    </pre>
+                                </div>
+                            </div>
+                            <!-- / Second status code -->
+                        </li>
+                    </ul>
+                    <!-- / Status codes description list -->
+
+                </div>
+
+            </div>
+            <!-- / Container for API endpoint description -->
+
+        </div>
+        <!-- / Container with API endpoints  -->
+
+
+        <!-- Container with examples -->
+        <div class="container-fluid ps-3 pt-3">
+
+            <h3 id="examples" class="pt-2 fw-bold">Request examples</h3>
+
+            <p class="pt-3 ps-4 pe-4 text-justify">
+                There are <strong>three request examples</strong> listed below.
+                Two of the examples are <i>correctly composed</i>, and one is <i>incorrectly composed</i>. <br>
+                The requests were sent using <a href="https://httpie.io/" class="text-decoration-none" target="_blank">HTTPie</a>, a command-line HTTP client written in <i>Python</i>.
+                To learn more about HTTPie, see the <a href="https://httpie.io/docs" class="text-decoration-none" target="_blank">HTTPie documentation</a>. <br>
+                At the time the requests were sent, this <i>service</i> was <strong>deployed locally, on port 8000</strong>. 
+                This means that that the URL, whose typical form is <span class="font-monospace bg-light ">&nbsp;http://&lt; domain-name &gt;:&lt; port &gt;/&lt; API-endpoint &gt;&nbsp;</span>, now takes the form of <span class="font-monospace bg-light ">&nbsp;http://127.0.0.1:8000/&lt; API-endpoint &gt;&nbsp;</span>.
+                If the <i>service</i> is <strong>deployed under different domain name</strong> and listening on <strong>different port</strong>, this <strong>should change accordingly</strong>. <br>
+                Each request example consists of three different parts:
+                <ul class=" ms-5 ps-5">
+                    <li> an <i>HTTPie command</i> used to send the request</li>
+                    <li> an <i>HTTP request</i> sent to the server (includes <i>headers</i> and <i>body</i> of the request)</li>
+                    <li> an <i>HTTP response</i> sent by the server (includes <i>headers</i> and <i>body</i> of the response)</li>
+                </ul>
+                <p class="ps-4">
+                    <span class="text-muted fw-bold">It is important to note</span>: All <i>HTTPie</i> commands are written for the <span class="font-monospace"> Windows command line</span>. 
+                    Also, every <i>long text</i> has been <i>broken down into multiple lines</i> for increased readability.
+                </p>
+            </p>
+
+            <div class="d-flex flex-column">
+
+                <h5 class="pt-2 px-3 fw-bold">1) Incorrect example</h5>
+
+                <!-- Container for first example - command -->
+                <div class="d-flex flex-row mx-4 pt-3 ps-3 mb-3">
+                    <!-- Description paragraph -->
+                    <div class="me-auto">
+                        <p class="pr-2">
+                            <strong><i>Description:</i></strong> <br>
+                            A <i>POST</i> request is sent to the API endpoint located on the <span class="font-monospace">"/summarize"</span> URL.
+                            The request body is formatted as a <i>JSON</i> object, containing a set of three parameters: <span class="font-monospace">"numOfSents"</span> , <span class="font-monospace">"sentRatio"</span> and <span class="font-monospace">"useFirstSent"</span>.
+                        </p>
+                    </div>
+                    <!-- Command -->
+                    <div class="pt-3 px-3 border-start border-dark" style="background-color: rgb(245, 245, 245);">
+                        <span class="fw-bold ps-5">HTTPie command</span>
+                        <pre>
+
+http --json --pretty all --print HBhb POST http://127.0.0.1:8000/summarize numOfSents:=4 sentRatio:=0.2 useFirstSent:=true
+                        </pre>
+                    </div>
+                </div>
+                <!-- / Container for first example - command -->
+                <!-- Container for first example - HTTP req/resp -->
+                <div class="d-flex flex-row mx-4" style="background-color: rgb(217, 217, 217);">
+                    <!-- HTTP request -->
+                    <div class="ps-5 me-auto pt-3">
+                        <span class="fw-bold ps-5">HTTP request</span>
+                        <pre>
+
+POST /summarize HTTP/1.1
+Accept: application/json, */*;q=0.5
+Accept-Encoding: gzip, deflate
+Connection: keep-alive
+Content-Length: 57
+Content-Type: application/json
+Host: 127.0.0.1:8000
+User-Agent: HTTPie/2.4.0
+
+{
+    "numOfSents": 4,
+    "sentRatio": 0.2,
+    "useFirstSent": true
+}
+                        </pre>
+                    </div>
+                    <div class="d-flex justify-content-center align-items-center pe-5 me-5">
+                        <div>
+                            <i class="bi bi-arrow-left-right fs-1"></i>
+                        </div>
+                    </div>
+                    <!-- HTTP response -->
+                    <div class="pe-5 pt-3">
+                        <span class="fw-bold ps-5">HTTP response</span>
+                        <pre>
+
+HTTP/1.1 400 Bad Request
+Allow: OPTIONS, POST
+Content-Length: 90
+Content-Type: application/json
+Date: Fri, 09 Apr 2021 13:33:52 GMT
+Referrer-Policy: same-origin
+Server: WSGIServer/0.2 CPython/3.7.4
+Vary: Accept, Cookie
+X-Content-Type-Options: nosniff
+X-Frame-Options: DENY
+
+{
+    "detail": "Malformed request body. Body of the request must contain a \"text\" parameter."
+}
+                        </pre>
+                    </div>
+                </div>
+                <!-- / Container for first example - HTTP req/resp -->
+                <!-- The explanation paragraph for the first example -->
+                <div class="pt-3">
+                    <p class="mx-4 text-justify ps-3 pt-3 mb-3">
+                        <strong><i>Explanation:</i></strong>
+                         The body of the request <i>does not contain</i> the <span class="font-monospace">"text"</span> parameter, which is <strong>required</strong>.
+                        Therefore, the server <i>rejects to process</i> this request, providing feedback about the error.
+                    </p>
+                </div>
+
+                <h5 class="pt-3 px-3 fw-bold">2) Correct examples</h5>
+
+                <!-- Container for second example - command -->
+                <div class="d-flex flex-row mx-4 pt-3 ps-3 mb-3">
+                    <!-- Description paragraph -->
+                    <div class="me-auto">
+                        <p class="pe-2">
+                            <strong><i>Description:</i></strong> <br>
+                            A <i>POST</i> request is sent to the API endpoint located on the <span class="font-monospace">"/summarize"</span> URL.
+                            The request body is formatted as a <i>JSON</i> object, containing a set of four parameters: <span class="font-monospace">"text"</span> , <span class="font-monospace">"numOfSents"</span> , <span class="font-monospace">"sentRatio"</span> and <span class="font-monospace">"useFirstSent"</span>.
+                        </p>
+                    </div>
+                    <!-- Command -->
+                    <div class="pt-3 px-3 border-start border-dark" style="background-color: rgb(245, 245, 245);">
+                        <span class="fw-bold ps-5">HTTPie command</span>
+                        <pre>
+
+echo { "text": "Most of the solar system's asteroids live and work in the main asteroid belt, a roughly flat zone between the orbits
+                of Mars and Jupiter. By tradition, the discoverers get to name their asteroids whatever they like. Often drawn by
+                artists as a region of cluttered, meandering rocks in the plane of the solar system, the asteroid belt's total mass
+                is less than five percent that of the Moon, which is itself barely more than one percent of Earth's mass.
+                Sounds insignificant. But accumulated perturbations of their orbits continually create a deadly subset, perhaps
+                a few thousand, whose eccentric paths intersect Earth's orbit. A simple calculation reveals that most of them
+                will hit Earth within a hundred million years. The ones larger than about a kilometer across will collide with enough
+                energy to destabilize Earth's ecosystem and put most of Earth's land species at risk of extinction. That would be bad.
+                Asteroids are not the only space objects that pose a risk to life on Earth. The Kuiper belt is a comet-strewn swath
+                of circular real estate that begins just beyond the orbit of Neptune, includes Pluto, and extends perhaps as far again
+                from Neptune as Neptune is from the Sun." ,
+        "numOfSents":5 ,
+        "sentRatio":0.2 ,
+        "useFirstSent":true
+     } | http --json --pretty all --print HBhb POST http://127.0.0.1:8000/summarize
+                        </pre>
+                    </div>
+                </div>
+                <!-- / Container for second example - command -->
+                <!-- Container for second example - HTTP req/resp -->
+                <div class="d-flex flex-row mx-4" style="background-color: rgb(217, 217, 217);">
+                    <!-- HTTP request -->
+                    <div class="ps-5 me-auto pt-3">
+                        <span class="fw-bold ps-5">HTTP request</span>
+                        <pre>
+
+POST /summarize HTTP/1.1
+Accept: application/json, */*;q=0.5
+Accept-Encoding: gzip, deflate
+Connection: keep-alive
+Content-Length: 1241
+Content-Type: application/json
+Host: 127.0.0.1:8000
+User-Agent: HTTPie/2.4.0
+
+{
+    "numOfSents": 5,
+    "sentRatio": 0.2,
+    "text": /* Same as above, omitted for brevity */ ,
+    "useFirstSent": true
+}   
+                        </pre>
+                    </div>
+                    <div class="d-flex justify-content-center align-items-center pe-5 me-5">
+                        <div>
+                            <i class="bi bi-arrow-left-right fs-1"></i>
+                        </div>
+                    </div>
+                    <!-- HTTP response -->
+                    <div class="pe-5 pt-3">
+                        <span class="fw-bold ps-5">HTTP response</span>
+                        <pre>
+
+HTTP/1.1 200 OK
+Allow: OPTIONS, POST
+Content-Length: 636
+Content-Type: application/json
+Date: Fri, 09 Apr 2021 13:34:14 GMT
+Referrer-Policy: same-origin
+Server: WSGIServer/0.2 CPython/3.7.4
+Vary: Accept, Cookie
+X-Content-Type-Options: nosniff
+X-Frame-Options: DENY
+
+{
+    "content": "Most of the solar system's asteroids live and work in the main asteroid belt, a roughly flat zone 
+                between the orbits of Mars and Jupiter. By tradition, the discoverers get to name their asteroids 
+                whatever they like. Often drawn by artists as a region of cluttered, meandering rocks in the plane 
+                of the solar system, the asteroid belt's total mass is less than five percent that of the Moon, 
+                which is itself barely more than one percent of Earth's mass. A simple calculation reveals that 
+                most of them will hit Earth within a hundred million years. Asteroids are not the only space objects 
+                that pose a risk to life on Earth."
+}
+                        </pre>
+                    </div>
+                </div>
+                <!-- / Container for second example - HTTP req/resp -->
+                <!-- The explanation paragraph for the second example -->
+                <div class="pt-3">
+                    <p class="mx-4 text-justify ps-3 pt-3 mb-3">
+                        <strong><i>Explanation:</i></strong>
+                        The body of the request contains <i>all valid parameters</i>, whose values are <i>in the accepted value range</i>.
+                        Therefore, the server <i>accepts to process</i> this request. <br>
+                        Since there is a <i>value</i> for the <span class="font-monospace">"numOfSents"</span> parameter, the <i>value</i> of the <span class="font-monospace">"sentRatio"</span> parameter will be <strong>excluded from the summarization process</strong>.
+                        Because of that, the <i>summary</i> consists of <strong>5 sentences</strong> (in some cases, the summary will consist of <strong>6 sentences</strong>, because the value of the <span class="font-monospace">"useFirstSent"</span> parameter is set to <span class="font-monospace">true</span> ). 
+                        It is good to know that only the sentences <i>longer than </i> <span class="font-monospace"> 40 characters </span> are taken into consideration when the summary is computed. Therefore, the summary can contain <i>less sentences than specified</i>, because the <i>input text</i> <strong>lacks sentences of sufficient lenght.</strong> <br>
+                        The first sentence of the <i>summary</i> is <strong>the same as</strong> the first sentence of the <i>input text</i>, because the <i>value</i> of the parameter <span class="font-monospace">"useFirstSent"</span> is set to <span class="font-monospace">true</span>. 
+                    </p>
+                </div>
+
+                <!-- Container for third example - command -->
+                <div class="d-flex flex-row mx-4 pt-5 ps-3 mb-3">
+                    <!-- Description paragraph -->
+                    <div class="me-auto">
+                        <p class="pe-2">
+                            <strong><i>Description:</i></strong> <br>
+                            A <i>POST</i> request is sent to the API endpoint located on the <span class="font-monospace">"/summarize"</span> URL.
+                            The request body is formatted as a <i>JSON</i> object, containing a set of three parameters: <span class="font-monospace">"text"</span> , <span class="font-monospace">"sentRatio"</span> and <span class="font-monospace">"useFirstSent"</span>.
+                        </p>
+                    </div>
+                    <!-- Command -->
+                    <div class="pt-3 px-3 border-start border-dark" style="background-color: rgb(245, 245, 245);">
+                        <span class="fw-bold ps-5">HTTPie command</span>
+                        <pre>
+
+echo { "text":"Pluto and its ensamble of siblings called Plutinos cross Neptune's path around the Sun. 
+               Other Kuiper belt objects plunge all the way down to the inner solar system, crossing planetary orbits with abandon.
+               This subset includes Halley, the most famous comet of them all. Far beyond the Kuiper belt, extending halfway to
+               the nearest stars, lives a spherical reservoir of comets called the Oort cloud, named for Jan Oort,
+               the Dutch astrophysicist who first deducted its existence. This zone is responsible for the long-period comets,
+               those with orbital periods far longer than a human lifetime. Unlike Kuiper belt comets,
+               Oort cloud comets can rain down on the inner solar system from any angle and from any direction.",
+       "sentRatio":0.7 ,
+       "useFirstSent":false
+} | http --json --pretty all --print HBhb POST http://127.0.0.1:8000/summarize
+                        </pre>
+                    </div>
+                </div>
+                <!-- / Container for third example - command -->
+                <!-- Container for third example - HTTP req/resp -->
+                <div class="d-flex flex-row mx-4" style="background-color: rgb(217, 217, 217);">
+                    <!-- HTTP request -->
+                    <div class="ps-5 me-auto pt-3">
+                        <span class="fw-bold ps-5">HTTP request</span>
+                        <pre>
+
+POST /summarize HTTP/1.1
+Accept: application/json, */*;q=0.5
+Accept-Encoding: gzip, deflate
+Connection: keep-alive
+Content-Length: 770
+Content-Type: application/json
+Host: 127.0.0.1:8000
+User-Agent: HTTPie/2.4.0
+
+{
+    "sentRatio": 0.7,
+    "text": /* Same as above, omitted for brevity */ ,
+    "useFirstSent": false
+}                          
+                        </pre>
+                    </div>
+                    <div class="d-flex justify-content-center align-items-center pe-5 me-5">
+                        <div>
+                            <i class="bi bi-arrow-left-right fs-1"></i>
+                        </div>
+                    </div>
+                    <!-- HTTP response -->
+                    <div class="pe-5 pt-3">
+                        <span class="fw-bold ps-5">HTTP response</span>
+                        <pre>
+
+HTTP/1.1 200 OK
+Allow: OPTIONS, POST
+Content-Length: 523
+Content-Type: application/json
+Date: Fri, 09 Apr 2021 13:35:01 GMT
+Referrer-Policy: same-origin
+Server: WSGIServer/0.2 CPython/3.7.4
+Vary: Accept, Cookie
+X-Content-Type-Options: nosniff
+X-Frame-Options: DENY
+
+{
+    "content": "This subset includes Halley, the most famous comet of them all. 
+                Far beyond the Kuiper belt, extending halfway to the nearest stars, 
+                lives a spherical reservoir of comets called the Oort cloud, 
+                named for Jan Oort, the Dutch astrophysicist who first deducted its existence. 
+                This zone is responsible for the long-period comets, 
+                those with orbital periods far longer than a human lifetime. 
+                Unlike Kuiper belt comets, Oort cloud comets can rain down on the inner solar system 
+                from any angle and from any direction."
+}
+                        </pre>
+                    </div>
+                </div>
+                <!-- / Container for third example - HTTP req/resp -->
+                <!-- The explanation paragraph for the third example -->
+                <div class="pt-3 pb-5">
+                    <p class="mx-4 text-justify ps-3 pt-3 mb-3">
+                        <strong><i>Explanation:</i></strong>
+                        The body of the request contains <i>all valid parameters</i>, whose values are <i>in the accepted value range</i>.
+                        Therefore, the server <i>accepts to process</i> this request. <br>
+                        The <i>value</i> of the <span class="font-monospace">"sentRatio"</span> parameter specifies the <i>ratio</i> of the number of <i>input text sentences</i> that need to be kept in the <i>summary</i>.
+                        It is good to know that only the sentences <i>longer than </i> <span class="font-monospace"> 40 characters </span> are taken into consideration.
+                        Therefore, the <i>summary</i> is composed of <strong>4 sentences</strong>, because the <span class="font-monospace"> 70% </span> of the number of sentences <i>longer than</i> <span class="font-monospace"> 40 characters </span> is equal to <span class="font-monospace"> 4 </span>. <br>
+                        The first sentence of the <i>summary content</i> is <strong>not the same as</strong> the first sentence of the <i>input text</i>, because the <i>value</i> of the parameter <span class="font-monospace">"useFirstSent"</span> is set to <span class="font-monospace">false</span> (but for different examples <strong>it could be</strong> the same). 
+                    </p>
+                </div>
+            </div>
+
+        </div>
+        <!-- / Container with examples -->
+
+    </div>
+    <!-- / Container with all of the page content -->
+
+    
+    <!-- Footer -->
+    {% include "summarizer/components/footer.html" %}
+
+
+    <!-- JS ( + Popper.js) - Bootstrap -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
+    
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+</body>
+<!-- / Page body -->
+
+</html>

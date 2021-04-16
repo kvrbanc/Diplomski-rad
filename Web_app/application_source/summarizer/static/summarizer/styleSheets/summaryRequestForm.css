@@ -1,0 +1,56 @@
+/* ***************
+    Page body
+*************** */
+
+/* Page body*/
+body{
+    font-family: 'Lora', serif;
+}
+
+/* First Heading */ 
+.heading{
+    background : linear-gradient( to right, rgba(0,0,0,0.15), rgba(0,0,0,0.0));
+}
+
+/* Text outlines */
+.gray-text-outline{
+    text-shadow:-1px -1px 0 rgb(64, 64, 64),
+                1px -1px 0 rgb(64, 64, 64),
+                -1px 1px 0 rgb(64, 64, 64),
+                1px 1px 0 rgb(64, 64, 64);
+}
+
+.white-text-outline{
+    text-shadow:-1px -1px 0 rgb(242, 242, 242),
+                1px -1px 0 rgb(242, 242, 242),
+                -1px 1px 0 rgb(242, 242, 242),
+                1px 1px 0 rgb(242, 242, 242);
+}
+
+/* First picture container */
+.header-picture-container{
+    background-image: url('../images/stacked-books.png');
+    background-size: cover;
+}
+
+/* Second picture container */
+.picture-container{
+    background-image: url('../images/stacked-books.png'); 
+    background-size: cover;
+}
+
+/* Container for form's radio button and number input */
+#ratioInputDiv{
+    background: repeating-linear-gradient( 
+        45deg, 
+        #d9d9d9,
+        #d9d9d9 10px, 
+        #cccccc 10px, 
+        #cccccc 20px
+    );
+}
+
+/* Containers for text */
+.text-container{
+    background-color: rgb(242, 242, 242);
+}

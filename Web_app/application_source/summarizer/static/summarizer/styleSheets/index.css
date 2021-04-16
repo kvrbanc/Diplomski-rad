@@ -1,0 +1,56 @@
+/* ***************
+    Page body
+*************** */
+
+/* Page body */
+body{
+    font-family: 'Lora', serif;
+}
+
+/* Picture container */
+.welcome-picture {
+    height: 100vh; 
+    background: url("../images/open-books.jpg");
+    background-position: 0 0;
+    background-size: cover;
+    opacity: 0.95;
+    
+}
+
+/* Button */
+.btn-custom-shadow{
+    box-shadow: 0 0 1px #ccc ;
+    -webkit-transition-duration: 0.2s;
+    transition-duration: 0.2s;
+    -webkit-transition-timing-function: linear;
+    transition-timing-function: linear;
+    box-shadow:0px 0 0 #88f09b4f  inset;
+}
+
+.btn-custom-shadow:hover{
+    box-shadow:158px 0 0#88f09b4f inset;
+}
+
+/* Containers with text and round picture */
+.text-image-container{
+    height: 60vh;
+}
+
+/* Round pictures */
+.rounded-picture{
+    width: 40vh;
+    height: 40vh;
+    background-size: cover;
+}
+
+.image-1{
+    background-image: url('../images/artificial-intelligence.jpg'); 
+    background-position: -80px 0px;
+}
+
+.image-2{
+    background-image: url('../images/monitors.jpg');
+    background-position: -70px 0px;
+}
+
+

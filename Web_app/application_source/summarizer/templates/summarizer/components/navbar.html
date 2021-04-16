@@ -1,0 +1,38 @@
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-sm fixed-top">
+
+    <!-- Main navbar container -->
+    <div class="container-fluid">
+
+        <!-- Navbar brand -->
+        <a class="navbar-brand" href="{% url 'summarizer:homepage1' %}" style="color: floralwhite; font-family:'Pacifico', cursive;">SummarizeIt</a>
+        <!-- / Navbar brand -->
+
+        <!-- Toggler button (used on small screens to display navbar) -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarLinks" aria-controls="navbarLinks" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <!-- / Toggler button -->
+
+        <!-- Navbar links -->
+        <div class="collapse navbar-collapse justify-content-end" id="navbarLinks" >
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link custom-link hover mx-1" href="{% url 'summarizer:homepage1' %}">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link custom-link hover mx-1" href="{% url 'summarizer:summary-form' %}">Summarizer</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link custom-link hover mx-1" href="{% url 'summarizer:api' %}">API</a>
+                </li>
+            </ul>
+        </div>
+        <!-- / Navbar links -->
+
+    </div>
+    <!-- / Main navbar container -->
+
+</nav>
+<!-- / Navbar -->
