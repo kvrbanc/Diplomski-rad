@@ -10,7 +10,9 @@ from bertsummarizer.summarizer_model import SummarizerModel
 # Define the model
 model = SummarizerModel()
 
-
+# --------------------------------------------
+#   Handler for the '/summarize' url path
+# --------------------------------------------
 @api_view(['POST',])
 def summary_computation(request):
 
@@ -38,14 +40,11 @@ def summary_computation(request):
             status = status.HTTP_400_BAD_REQUEST
         )
     
-    # print("Klase: "+ type(req["text"]).__name__ +" "+ type(req["numOfSents"]).__name__ +" " + type(req["sentRatio"]).__name__ +" "+ type(req["useFirstSent"]).__name__)
-
     # Extract the values of the request parameters (if there is no value, use the default value)
     content = req["text"]
     numberOfSentences = req.get("numOfSents", None)
     sentenceRatio = req.get("sentRatio", 0.2)
     useFirstSent = req.get("useFirstSent", True)
-
 
     # Validate the types of the request parameters
     error_message, request_parameters = validateParameterTypes(content, numberOfSentences, sentenceRatio, useFirstSent)
@@ -55,6 +54,8 @@ def summary_computation(request):
             status = status.HTTP_400_BAD_REQUEST
         )
     
+    # Extract the parameter values (this is used in case there is a  'application/x-www-form-urlencoded' type body, 
+    # where all the parameter values are strings)
     content = request_parameters["text"]
     numberOfSentences = request_parameters["numOfSents"]
     sentenceRatio = request_parameters["sentRatio"]
@@ -78,28 +79,37 @@ def summary_computation(request):
     )
     
 
+# ---------------------------------------------------------
+#   Function for checking parameter names of a request body
+# ---------------------------------------------------------
 def validateParameterNames(requestBody):
 
+    # A set of valid parameter names
     valid_parameters = ["text", "numOfSents", "sentRatio", "useFirstSent"]
 
+    # Extract the body's parameter names and check if they are valid
     request_parameters = requestBody.keys()
-
     if set(request_parameters).issubset(set(valid_parameters)):
         return True
     else:
         return False
 
 
+# ---------------------------------------------------------
+#   Function for checking parameter value types 
+# ---------------------------------------------------------
 def validateParameterTypes(content, numberOfSentences, sentenceRatio, useFirstSentence ):
 
     error_message = "Malformed request body. "
     request_parameters = {}
 
+    # Check if the value of the "text" parameter is a string
     if not type(content) == str:
         return (error_message + "The parameter \"text\" must have a string value.", None)
-    
     request_parameters["text"] = content
     
+    # If provided, check if the value of the "numOfSents" parameter is a integer
+    #  - It could be sent as a string, so try to convert it to integer
     if numberOfSentences is not None:
         if type(numberOfSentences) != int:
             if type(numberOfSentences) == str:
@@ -109,11 +119,10 @@ def validateParameterTypes(content, numberOfSentences, sentenceRatio, useFirstSe
                     return (error_message + "The parameter \"numOfSents\" must have an integer value.", None)
             else:
                 return (error_message + "The parameter \"numOfSents\" must have an integer value.", None)
-        
     request_parameters["numOfSents"] = numberOfSentences
 
-    
-
+    # Check if the value of the "sentRatio" parameter is a float
+    #  - It could be sent as a string, so try to convert it to float
     if type(sentenceRatio) != float:
         if type(sentenceRatio) == str:
             try:
@@ -122,10 +131,10 @@ def validateParameterTypes(content, numberOfSentences, sentenceRatio, useFirstSe
                 return (error_message + "The parameter \"sentRatio\" must have a float value.", None)
         else:
             return (error_message + "The parameter \"sentRatio\" must have a float value.", None)
-        
     request_parameters["sentRatio"] = sentenceRatio
 
-    
+    # Check if the value of the "useFirstSent" parameter is a boolean
+    #  - It could be sent as a string, so try to convert it to boolean
     if type(useFirstSentence) != bool:
         if type(useFirstSentence) == str:
             if useFirstSentence.lower() == "true":
@@ -136,12 +145,15 @@ def validateParameterTypes(content, numberOfSentences, sentenceRatio, useFirstSe
                 return (error_message + "The parameter \"useFirstSent\" must have a boolean value.", None)
         else:
             return (error_message + "The parameter \"useFirstSent\" must have a boolean value.", None)
-
     request_parameters["useFirstSent"] = useFirstSentence
     
     return (False, request_parameters)
 
 
+# ---------------------------------------------------------
+#   Function for checking if the parameter values are
+#   in the appropriate range.
+# ---------------------------------------------------------
 def validateValueRange(content, numberOfSentences, sentenceRatio):
 
     # Define the error message
