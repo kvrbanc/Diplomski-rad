@@ -5,6 +5,7 @@ from transformers import *
 
 from spacy.lang.en import English
 
+
 from sentence_separator import SentenceSeparator
 from kmeans_wrapper import KMeansWrapper
 from bert_wrapper import BertWrapper
@@ -212,11 +213,3 @@ class SummarizerModel(object):
             str: A summary of the input text containing sentences whose embeddings are closest to cluster centroids.
         """
         return self.summarize(content, sent_ratio, num_sentences, min_length, max_length, use_first_sent)
-
-
-if __name__=="__main__":
-    bodyAstrophysics2='''
-    In 2016, the field of artificial intelligence was electrified by the news that AplhaGo, DeepMind's computer program, had beat Lee Sedol, the world champion of the ancient game of Go. Many had believed that this feat would require several more decades. Editorials began to wail that this was the obituary for the human race. The machines had finally crossed the Rubicon and would soon take over. There was no turning back. AlphaGo is the most advanced game-playing program ever. In chess, there are, on average, about 20 to 30 moves you can make at any time, but for Go, there are about 250 possible moves. In fact, the total number of Go game configurations exeeds the total number of atoms in the universe. It was once thought to be too difficult for a computer to count all possible moves, so when AplhaGo manages to beat Sedol, it became an instant media sensation. However, it soon became apparent that AplhaGo, no matter how sophisticated, was a one-trick pony. Winning at Go was all it could do. As Oren Etzioni, CEO of the Allen Institute for Artificial Intelligence, said, "AlphaGo can't even play chess. It can't talk about the game. My six-year-old is smarter than AlphaGo." No matter how powerful its hardware is, you cannot go up to the machine, slap it on its back, congradulate it for beating a human, and expect a coherent response. The machine is totally unaware that it made a scientific history. In fact, machine does not even know that it is a machine. We often forget that today's robots are glorified adding machines, without self-awareness, creativity, common sense, or emotions. They can excel at specific, repetitive, narrow tasks but fail at more complex ones that require general knowledge. Although the field of AI is making truly revolutionary breakthroughs, we have to put its progress in perspective. If we compare the evolution of robots to that of rocketry, we see that robotics is beyond the stage that Tsiolkovsky was in - that is, beyond the phase of speculation and theorizing. We are all well within the stage that Goddard propelled us into and are building actual prototypes that are primitive but can demonstrate that are basic principles are correct. However, we have yet to move into the next phase, the realm of von Braun, in which innovative, powerful robots would be rolling of the assembly line and building cities on distant planets. So far, robots have been spectacularly successful as remote-controlled machines. Behind the Voyager spacecraft that sailed across Jupiter and Saturn, behind the Viking landers that touched down on the surface of Mars, behind the Galileo and Cassini spacecraft that orbited the gas giants, there was a dedicated crew of humans who called the shots. Like drones, these robots simply carried out the instructions of their human handlers at Mission Control in Pasadena. All the "robots" we see in movies are either puppets, computer animations, or remote-controlled machines. But because computer power has been doubling every eighteen months for the past few decades, what can we espect in the future?
-    '''
-
-    print(SummarizerModel().summarize(bodyAstrophysics2, sent_ratio=0.4))
