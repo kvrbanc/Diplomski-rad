@@ -21,7 +21,6 @@ U ovom direktoriju nalazi se programski kod koji ostvaruje funkcionalnost modela
     |   summarizer_model.py
     |   testing.py
     |   __init__.py
-
 </pre>
 Potdirektorij ***bertsummarizer*** sadrži datoteke programskog jezika *Python* kojima je ostvaren model za sažimanje teksta. Pritom datoteka ***\_\_init\_\_.py*** služi kako bi se direktorij označio kao paket programskog jezika *Python*, a datoteka ***testing.py*** služi za ispitivanje modela. Ostale datoteke koje uključuju ***bert_wrapper.py***, ***kmeans_wrapper.py***, ***sentence_separator.py*** i ***summarizer_model.py*** programski ostvaruju model.</br></br>
 Datoteka ***requirements.txt*** sadrži popis i verzije *Python* paketa koje je potrebno instalirati na računalo kako bi se mogla koristiti funkcionalnost modela za ekstraktivno sažimanje teksta. Preporučeno je korištenje <a href="https://docs.python.org/3/library/venv.html">Python virtualnog okruženja</a> pri intalaciji potrebnih *Python* paketa. 
