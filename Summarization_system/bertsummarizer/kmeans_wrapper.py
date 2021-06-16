@@ -44,12 +44,12 @@ class KMeansWrapper(object):
     """
 
 
-    def __init__(self, sent_embeddings: ndarray, sent_ratio: float = 0.1, num_sentences: int = None, random_state: int = 12345):
+    def __init__(self, sent_embeddings: ndarray, sent_ratio: float = 0.2, num_sentences: int = None, random_state: int = 12345):
         """Initializes an instance of the KMeansWrapper class.
 
         Args:
             sent_embeddings (ndarray): Embeddings of the sentences being clustered.
-            sent_ratio (float, optional): Ratio of the number of input sentence embeddings whose indices need to be returned. Defaults to 0.1.
+            sent_ratio (float, optional): Ratio of the number of input sentence embeddings whose indices need to be returned. Defaults to 0.2.
             num_sentences (int, optional): Absolute number of input sentence embeddings whose indices need to be returned. Defaults to None.
             random_state (int, optional): A fixed random seed (used for replication of results). Defaults to 12345.
         """
@@ -196,8 +196,8 @@ class KMeansWrapper(object):
         closest_sentences = self.find_closest_sents(centroids)
 
         # Sort the list indices and return them
-        sorted_indexes = sorted(closest_sentences.values())
-        return sorted_indexes
+        sorted_indices = sorted(closest_sentences.values())
+        return sorted_indices
     
 
     def __call__(self) -> List[int] :
@@ -207,6 +207,6 @@ class KMeansWrapper(object):
             List[int]: Sorted list indices of the sentence embeddings who fall closest to cluster centroids.
         """
         return self.cluster_embeddings()
-    
+
 
 

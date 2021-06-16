@@ -114,7 +114,7 @@ async function postRequest(url = '', data = {}){
     const $submitButtonText = $('#submitButtonText');
     $submitButtonText.css( "display" , "none" );
     
-    // Display a loading animation
+    // Display the loading animation
     const $loadingSpinner = $('#loadingSpinner');
     $loadingSpinner.css( "display" , "inline-block" );
 

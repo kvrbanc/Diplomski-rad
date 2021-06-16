@@ -153,22 +153,22 @@ class SummarizerModel(object):
         Returns:
             Tuple[List[str], np.ndarray]: List of sentences along with their embeddings.
         """
-        # Calculate the embeddings of input sentences 
+        # Calculate the embeddings of the input sentences 
         all_sent_embeddings = self.retrieve_sent_embeddings(content_sents = content_sents)
-        # Cluster the sentence embeddings using a specified number of clusters
-        closest_sent_indexes = self.cluster_sent_embeddings(all_sent_embeddings, sent_ratio=sent_ratio, num_sentences=num_sentences)
+        # Cluster the sentence embeddings using the specified number of clusters
+        closest_sent_indices = self.cluster_sent_embeddings(all_sent_embeddings, sent_ratio=sent_ratio, num_sentences=num_sentences)
 
         # Include the index of the first sentence if *useFirstSent* is set to true 
         if use_first_sent:
-            if not closest_sent_indexes:
-                closest_sent_indexes.append(0)
-            elif closest_sent_indexes[0] != 0:
-                closest_sent_indexes.insert(0 , 0)
+            if not closest_sent_indices:
+                closest_sent_indices.append(0)
+            elif closest_sent_indices[0] != 0:
+                closest_sent_indices.insert(0 , 0)
         
         # Extract the sentences whose indices were closest to cluster centroids
-        sentences = [content_sents[index] for index in closest_sent_indexes]
+        sentences = [content_sents[index] for index in closest_sent_indices]
         # Extract the sentence embeddings whose indices were closest to cluster centroids
-        embedded_sentences = np.asarray([all_sent_embeddings[index] for index in closest_sent_indexes])
+        embedded_sentences = np.asarray([all_sent_embeddings[index] for index in closest_sent_indices])
 
         return sentences, embedded_sentences
     
@@ -185,7 +185,7 @@ class SummarizerModel(object):
             use_first_sent (bool, optional): Whether the first sentence of the input text should be included in the summary. Defaults to True.
 
         Returns:
-            str: A summary of the input text containing sentences whose embeddings are closest to cluster centroids.
+            str: A summary of the input text containing sentences whose embeddings are closest to the cluster centroids.
         """
         # Separate the text into sentences
         sentence_list = self.separate_sentences(content=content, min_length=min_length, max_length=max_length)
@@ -213,3 +213,4 @@ class SummarizerModel(object):
             str: A summary of the input text containing sentences whose embeddings are closest to cluster centroids.
         """
         return self.summarize(content, sent_ratio, num_sentences, min_length, max_length, use_first_sent)
+

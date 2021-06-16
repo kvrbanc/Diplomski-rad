@@ -147,15 +147,15 @@ class BertWrapper(object):
         """
         # Convert text to tokens, and tokens into vocabulary IDs
         text_token_ids = self.prepare_input(text)
-        # Run a forward pass on a BertModel
-        _ ,pooled_states, hidden_states = self.forward_pass(text_token_ids)
+        # Run a forward pass on the BertModel
+        _ ,_ , hidden_states = self.forward_pass(text_token_ids)
 
         # Extract the values from specified hidden layers
         if type(hidden_layers) == int:
             hidden = hidden_states[hidden_layers]
         else:
             last_states = [hidden_states[i] for i in hidden_layers]
-            hidden = torch.cat(tuple(last_states), dim = 1)
+            hidden = torch.cat(tuple(last_states), dim = 1) 
         # Return the mean of extracted values
         return hidden.mean(dim=1).squeeze()
     
@@ -190,6 +190,4 @@ class BertWrapper(object):
             np.ndarray: Embeddings for each sentence of the input text.
         """
         return self.create_embedding_matrix(content, hidden_layers)
-
-
     

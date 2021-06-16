@@ -11,7 +11,7 @@ from bertsummarizer.summarizer_model import SummarizerModel
 model = SummarizerModel()
 
 # --------------------------------------------
-#   Handler for the '/summarize' url path
+#   Handler for the 'summarize' url path
 # --------------------------------------------
 @api_view(['POST',])
 def summary_computation(request):
@@ -29,7 +29,7 @@ def summary_computation(request):
     # Validate the names of the request parameters
     if not validateParameterNames(req):
         return Response(
-            data = {"detail": "Malformed request body. Incorrect parameters provided. A set of correct parameters: \"text\", \"numOfSents\", \"ratio\", \"useFirstSent\". "},
+            data = {"detail": "Malformed request body. Incorrect parameters provided. A set of correct parameters: \"text\", \"numOfSents\", \"sentRatio\", \"useFirstSent\". "},
             status = status.HTTP_400_BAD_REQUEST
         )
     
